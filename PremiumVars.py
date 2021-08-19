@@ -1,13 +1,13 @@
 from pydantic import BaseModel
 
 class PremiumVars(BaseModel): 
-      Age : int
-      Diabetes : int 
-      BloodPressureProblems : int 
-      AnyTransplants : int 
-      AnyChronicDiseases: int 
-      Height: int 
-      Weight : int 
-      KnownAllergies : int 
-      HistoryOfCancerInFamily: int 
-      NumberOfMajorSurgeries: int 
+      Age: float
+      Diabetes: float 
+      BloodPressureProblems: float 
+      AnyTransplants: float 
+      AnyChronicDiseases: float 
+      Height: float 
+      Weight: float 
+      KnownAllergies: float  
+      HistoryOfCancerInFamily: float  
+      NumberOfMajorSurgeries: float  

@@ -1,15 +1,14 @@
 import uvicorn 
 from fastapi import FastAPI
 import numpy as np 
-import pickle 
+import joblib
 import pandas as pd
 from PremiumVars import PremiumVars
 
 api = FastAPI()
-pickle_in_rf = open("D:/JUPYTER/Projects/Medical-Premium-Prediction/rf.pkl")
-classifier_rf = pickle.load(pickle_in_rf)
-pickle_in_xg = open("D:/JUPYTER/Projects/Medical-Premium-Prediction/xgb.pkl")
-classifier_xg = pickle.load(pickle_in_xg)
+
+classifier_rf = joblib.load("D:/JUPYTER/Projects/Medical-Premium-Prediction/rf.sav")
+classifier_xg = joblib.load("D:/JUPYTER/Projects/Medical-Premium-Prediction/xgb.sav")
 
 
 @api.post('/predict')
@@ -26,10 +25,11 @@ def predict_premium(data:PremiumVars):
     HOC = data['HistoryOfCancerInFamily']
     NOS = data['NumberOfMajorSurgeries']
     predict_rf = classifier_rf.predict([[age,Diabetes,BpP, AT, ACT, Height, Weight, KA, HOC, NOS]])
-    predict_xg = classifier_xg.predict([[age,Diabetes,BpP, AT, ACT, Height, Weight, KA, HOC, NOS]])
+    print(predict_rf)
+    #predict_xg = classifier_xg.predict([[age,Diabetes,BpP, AT, ACT, Height, Weight, KA, HOC, NOS]])
     return{
-        'Prediction using Random Forest(Accuracy Score: 70)': predict_rf,
-        'Prediciton using XGBOOST(Accuracy Score: 68.6)': predict_xg              
+        'Prediction using Random Forest(Accuracy Score: 70)': predict_rf
+        #'Prediciton using XGBOOST(Accuracy Score: 68.6)': predict_xg              
         }
 
 if __name__ == '__main__':
